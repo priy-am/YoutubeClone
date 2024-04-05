@@ -1,16 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import mdx from '@mdx-js/rollup'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: "/YoutubeClone",
-  plugins: [react()],
-  build: {
-    // generate .vite/manifest.json in outDir
-    manifest: true,
-    rollupOptions: {
-      // overwrite default .html entry
-      input: '/path/to/main.js',
-    },
-  },
-});
+  plugins: [
+    { enforce: 'pre', ...mdx() },
+    react({ include: /\.(mdx|js|jsx|ts|tsx)$/ }),
+  ],
+})
